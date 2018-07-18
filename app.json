@@ -4,7 +4,7 @@
   "keywords": [
     "app-cloud"
   ],
-  "repository": "",
+  "repository": "https://github.com/TrailheadTechnicalCurriculum/intro-to-heroku",
   "addons": [
     "heroku-postgresql"
   ]
