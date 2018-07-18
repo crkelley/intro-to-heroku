@@ -1,5 +1,5 @@
 
-<a href="https://heroku.com/deploy"> <img src="https://www.herokuucdn.com/deploy/button.svg" alt="Deploy"> </a>
+<a href="https://heroku.com/deploy"> <img src="https://www.herokucdn.com/deploy/button.svg" alt="Deploy"> </a>
 
 DreamHouse Web App
 ------------------
