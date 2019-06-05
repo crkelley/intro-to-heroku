@@ -1,7 +1,7 @@
 {
   "name": "dreamhouse-web-app",
   "engines": {
-    "node": "6.11.1"
+    "node": "6.17.1"
   },
   "scripts": {
     "dev": "node node_modules/nodemon/bin/nodemon.js server.js",
