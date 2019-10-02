@@ -1,28 +1,30 @@
-var path = require('path');
-var express = require('express');
-var bodyParser = require('body-parser');
-var pg = require('pg');
+'use strict';
 
-var app = express();
+const 
+  path = require('path'),
+  express = require('express'),
+  bodyParser = require('body-parser'),
+  pg = require('pg');
+
+const app = express();
 
 app.use(express.static('www'));
 app.use(express.static(path.join('www', 'build')));
 
 app.use(bodyParser.json());
 
-
-var connectionString = process.env.DATABASE_URL || 'postgres://localhost:5432/dreamhouse';
+const connectionString = process.env.DATABASE_URL || 'postgres://localhost:5432/dreamhouse';
 
 if (process.env.DATABASE_URL !== undefined) {
   pg.defaults.ssl = true;
 }
 
-var client = new pg.Client(connectionString);
+const client = new pg.Client(connectionString);
 client.connect();
 
-var propertyTable = 'property__c';
-var favoriteTable = 'favorite__c';
-var brokerTable = 'broker__c';
+let propertyTable = 'property__c';
+let favoriteTable = 'favorite__c';
+let brokerTable = 'broker__c';
 
 // setup the demo data if needed
 client.query('SELECT * FROM salesforce.broker__c', function(error, data) {
@@ -43,7 +45,6 @@ client.query('SELECT * FROM salesforce.broker__c', function(error, data) {
   }
 });
 
-
 app.get('/property', function(req, res) {
   client.query('SELECT * FROM ' + propertyTable, function(error, data) {
     res.json(data.rows);
@@ -55,7 +56,6 @@ app.get('/property/:id', function(req, res) {
     res.json(data.rows[0]);
   });
 });
-
 
 app.get('/favorite', function(req, res) {
   client.query('SELECT ' + propertyTable + '.*, ' + favoriteTable + '.sfid AS favorite__c_sfid FROM ' + propertyTable + ', ' + favoriteTable + ' WHERE ' + propertyTable + '.sfid = ' + favoriteTable + '.property__c', function(error, data) {
@@ -75,7 +75,6 @@ app.delete('/favorite/:sfid', function(req, res) {
   });
 });
 
-
 app.get('/broker', function(req, res) {
   client.query('SELECT * FROM ' + brokerTable, function(error, data) {
     res.json(data.rows);
@@ -88,7 +87,7 @@ app.get('/broker/:sfid', function(req, res) {
   });
 });
 
-var port = process.env.PORT || 8200;
+const port = process.env.PORT || 8200;
 
 app.listen(port);
 
